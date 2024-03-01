@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+  background-color: #1F1F2F;
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+.main-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7vh;
+  flex-direction: column;
+  
+}
+
+.game-heading{
+  padding: 0.7rem 1.7rem;
+  border-radius: 0.5rem;
+  width: 22.5rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+
+.light-background{
+   background-color: #4b495f;
+}
+
+.square-wrapper{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 0.8rem;
+  row-gap: 0.8rem;
+}
+
+.square{
+  background-color: #4B495f;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 0.4rem;
+}
+
+.square:hover{
+  cursor: pointer;
+}
+
+.left, .right{
+  height: 2.5rem;
+  width: 10rem;
+  background-color: #4b495f;
+}
+
+.move-detection{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  width: 35rem;
+}
+
+.left{
+  border-bottom-left-radius: 4.5rem;
+  border-top-right-radius: 4.5rem;
+  text-align: center;
+  padding-top: 0.8rem;
+}
+
+.right{
+  border-top-right-radius: 4.5rem;
+  border-bottom-left-radius: 4.5rem;
+  text-align: center;
+  padding-top: 0.8rem;
+}
+
+.not-allowed{
+  cursor: not-allowed !important;
+}
+
+.finished-state{
+  font-size: 2rem;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  margin-top: 1rem;
+}
+
+.Circle-won{
+  background-color: #DD7F9F;
+}
+
+.Cross-won{
+  background-color: rgb(63, 167, 240);
+}
+
+
+
