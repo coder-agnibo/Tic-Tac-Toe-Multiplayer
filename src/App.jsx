@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Square from "./square/Square";
+import { io } from "socket.io-client";
+import Swal from "sweetalert2";
 
 const renderFrom = [
   [1, 2, 3],
@@ -13,6 +15,10 @@ function App() {
   const [currentPlayer, setCurrentPlayer] = useState("Circle");
   const [finishedState, setFinishedState] = useState();
   const [finishedArrayState, setFinishedArrayState] = useState([]);
+  const [playOnline, setPlayOnline] = useState(false);
+  const [socket, setSocket] = useState(null);
+  const [playerName, setPlayerName] = useState("");
+  const [opponentName, setOpponentName] = useState(null);
 
   const checkWinner = () => {
     // row dynamic
@@ -66,6 +72,79 @@ function App() {
       setFinishedState(winner);
     }
   }, [gameState]);
+
+  // useEffect(() => {
+  //   if (socket && socket.connected) {
+  //     setPlayOnline(true);
+  //   }
+  // }, [socket]);
+
+  const takePlayerName = async () => {
+    const result = await Swal.fire({
+      title: "Enter your Name",
+      input: "text",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return "You need to write something!";
+        }
+      },
+    });
+    return result;
+  };
+
+  socket?.on("connect", function () {
+    setPlayOnline(true);
+  });
+
+  socket?.on("opponentNotFound", function () {
+    setOpponentName(false);
+  });
+
+  socket?.on("opponentFound", function (data) {
+    setOpponentName(data.opponentName);
+    console.log(data);
+  });
+
+  const playOnlineClick = async () => {
+    const result = takePlayerName();
+    // console.log(result);
+    if (!(await result).isConfirmed) return;
+
+    const userName = (await result).value;
+    setPlayerName(userName);
+
+    const newSocket = io("http://localhost:3000", {
+      autoConnect: true,
+    });
+
+    newSocket?.emit("request_to_play", {
+      playerName: userName,
+    });
+
+    setSocket(newSocket);
+  };
+
+  if (!playOnline) {
+    return (
+      <div className="main-div">
+        <button onClick={playOnlineClick} className="play-online">
+          {" "}
+          Play Online
+        </button>
+      </div>
+    );
+  }
+
+  if (playerName && !opponentName) {
+    return (
+      <>
+        <div className="waiting">
+          <p>Waiting for an opponent....</p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

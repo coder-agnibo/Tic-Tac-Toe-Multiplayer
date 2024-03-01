@@ -98,5 +98,27 @@ body{
   background-color: rgb(63, 167, 240);
 }
 
+.play-online{
+  background-color: #e4ca56;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  outline: none;
+  font-size: 5rem;
+  margin-top: 40vh;
+  padding: 0.5rem;
+}
+
+.waiting{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 4rem;
+}
 
 
